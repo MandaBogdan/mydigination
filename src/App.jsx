@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Profile from "./components/Profile";
-import Navbar from "./components/Navbar";
+import NavBar from "./components/NavBar";
 import "react-image-crop/dist/ReactCrop.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -85,7 +85,7 @@ function App() {
     return (
         <div className="bg-gray-900 text-gray-400 min-h-screen p-4">
             <div className="mb-4 flex items-center justify-between">         
-                <Navbar onSearch={(tag) => setSearchTag(tag)} />
+                <NavBar onSearch={(tag) => setSearchTag(tag)} />
                 <img src="images\logo.png" className="rounded-full h-12 w-12 object-cover mr-20"/>
                 <button
                 className="bg-blue-500 text-white p-2 rounded mr-10"
