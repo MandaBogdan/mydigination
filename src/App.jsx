@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import Profile from "./components/Profile";
+import HideButton from "./components/HideButton";
 import NavBar from "./components/NavBar";
 import "react-image-crop/dist/ReactCrop.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -31,14 +32,14 @@ function App() {
             avatarUrl: updatedProfile.imageURL,
             title: updatedProfile.title,
             tags: updatedProfile.tags,
-            hasPicture: updatedProfile.hasPicture1,
+            hasPicture: updatedProfile.hasPicture,
             modalOpen: updatedProfile.modalOpen,
         };
 
         const updatedProfiles = [...beforeProfile, newProfile, ...afterProfile]
         updatedFolder.profiles = updatedProfiles;
         const updatedFolders = [...beforeFolder, updatedFolder, ...afterFolder];
-
+        console.log(updatedFolders)
         setFolders(updatedFolders);
     };
 
@@ -47,7 +48,7 @@ function App() {
 
         if (folderIndex !== -1) {
             const updatedFolders = [...folders];
-            const newProfiles = Array.from({ length: 3 }, (_, index) => ({
+            const newProfiles = Array.from({ length: 1 }, (_, index) => ({
                 key: updatedFolders[folderIndex].profiles.length + index,
                 title: "",
                 tags: "",
@@ -60,7 +61,7 @@ function App() {
             const newFolder = {
                 name: folderName,
                 isFolderVisible: true,
-                profiles: Array.from({ length: 3 }, (_, index) => ({
+                profiles: Array.from({ length: 1 }, (_, index) => ({
                     key: index,
                     title: "",
                     tags: "",
@@ -86,22 +87,7 @@ function App() {
 
             <hr className="line-with-shadow" />
             <div className="mt-4">
-                <div className="max-w-6xl mx-auto mt-4 text-white">
-                    <h2 className="text-xl font-bold mb-2">Instructiuni:</h2>
-                    <p>
-                        Pentru a adauga un document nou apasati "Document Nou +". Tastati un nume pentru acesta in fereastra deschisa.
-                    </p>
-                    <p>
-                        Pentru a adauga o noua imagine apasati "Adauga +". Selectati poza din galeria personala, adaugati un titlu si o lista de tag-uri pentru cautare.
-                        Acum poza este afisata si puteti sa o taiati cum doriti.
-                    </p>
-                    <p>
-                        Pentru a fi salvata, apasati "Adauga imaginea".
-                    </p>
-                    <p>
-                        Functia de cautare functioneaza dupa tag-uri. Tastati un tag in casuta de cautare din bara de navigare pentru a afisa doar imaginile cu acel tag.
-                    </p>
-                </div>
+                <HideButton/>
                 {folders.map((folder, folderIndex) => (
                     <div key={folderIndex} className="mb-4">
                         <div className="flex justify-between items-center">

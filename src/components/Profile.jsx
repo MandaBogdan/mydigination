@@ -6,12 +6,12 @@ import Modal from "./Modal";
 import Zoom from "./Zoom";
 import { ZoomImage } from "react-image-zoom-on-hover";
 
-const Profile = ({hasPicture1, title, tags, avatarUrl, searchTags, onProfileUpdate }) => {
+const Profile = ({hasPicture, title, tags, avatarUrl, searchTags, onProfileUpdate }) => {
     const [myAvatarUrl, setAvatarUrl] = useState(avatarUrl);
     const [modalOpen, setModalOpen] = useState(false);
     const [myTitle, setMyTitle] = useState(title);
     const [myTags, setMyTags] = useState(tags);
-    const [hasPicture, setPicture] = useState(hasPicture1);
+    const [myhasPicture, setPicture] = useState(hasPicture);
 
     const imageURL = useRef(
         "https://dunlite.com.au/wp-content/uploads/2019/04/placeholder.jpg"
@@ -23,6 +23,7 @@ const Profile = ({hasPicture1, title, tags, avatarUrl, searchTags, onProfileUpda
         setMyTitle(title);
         setMyTags(tags);
         setPicture(true);
+        const hasPicture = true;
         onProfileUpdate({hasPicture, title, tags, imageURL});
     };
 
@@ -39,20 +40,20 @@ const Profile = ({hasPicture1, title, tags, avatarUrl, searchTags, onProfileUpda
                     title="Change photo"
                     onClick={() => setModalOpen(true)}
                 >   
-                    {!hasPicture && (<div>Adauga</div>)}
-                    {!hasPicture && (<AddIcon />)}
-                    {hasPicture && (<div>Modifica </div>)}
-                    {hasPicture && (<EditIcon />)}
+                    {!myhasPicture && (<div>Adauga</div>)}
+                    {!myhasPicture && (<AddIcon />)}
+                    {myhasPicture && (<div>Modifica </div>)}
+                    {myhasPicture && (<EditIcon />)}
                 </button>
             
 
             <div className="mt-14 text-center flex flex-col items-center">
             <div className="flex items-center mb-2">
-            {hasPicture && (<p className="text-lg text-opacity-50 mr-2">titlu:</p>)}
+            {myhasPicture && (<p className="text-lg text-opacity-50 mr-2">titlu:</p>)}
                 <p className="text-lg font-semibold text-white">{myTitle}</p>
             </div>
             <div className="flex items-center">
-            {hasPicture && (<p className="text-sm text-opacity-50 mr-2">tag:</p>)}
+            {myhasPicture && (<p className="text-sm text-opacity-50 mr-2">tag:</p>)}
                 <p className="text-sm text-white">{myTags}</p>
             </div>
             </div>
