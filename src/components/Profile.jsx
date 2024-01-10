@@ -23,7 +23,6 @@ const Profile = ({title, tags, avatarUrl, searchTags, onProfileUpdate }) => {
         setMyTitle(title);
         setMyTags(tags);
         setPicture(true);
-        // Pass the updated profile information to the parent
         onProfileUpdate({title, tags, imageURL});
     };
 

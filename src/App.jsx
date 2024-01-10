@@ -15,8 +15,6 @@ function App() {
 
     const updateFolder = (folderName, updatedProfile, profileKey) => {
         const prevFolders = [...folders]
-        console.log(prevFolders);
-        console.log(updatedProfile);
         const folderIndex = prevFolders.findIndex((folder) => folder.name === folderName);
         const beforeFolder = prevFolders.slice(0, folderIndex);
         const updatedFolder = prevFolders[folderIndex];
@@ -35,12 +33,11 @@ function App() {
             tags: updatedProfile.tags,
             modalOpen: updatedProfile.modalOpen,
         };
-        
+
         const updatedProfiles = [...beforeProfile, newProfile, ...afterProfile]
         updatedFolder.profiles = updatedProfiles;
         const updatedFolders = [...beforeFolder, updatedFolder, ...afterFolder];
 
-        console.log(updatedFolders);
         setFolders(updatedFolders);
     };
 
@@ -48,29 +45,25 @@ function App() {
         const folderIndex = folders.findIndex((folder) => folder.name === folderName);
 
         if (folderIndex !== -1) {
-
-            // Folder exists, add profile to existing folder
             const updatedFolders = [...folders];
-            updatedFolders[folderIndex].profiles.push({
-                key: updatedFolders[folderIndex].profiles.length,
+            const newProfiles = Array.from({ length: 3 }, (_, index) => ({
+                key: updatedFolders[folderIndex].profiles.length + index,
                 title: "",
                 tags: "",
                 avatarUrl: imageURL,
-            });
+            }));
+            updatedFolders[folderIndex].profiles.push(...newProfiles);
             setFolders(updatedFolders);
         } else {
-            // Folder doesn't exist, create a new folder and add profile to it
             const newFolder = {
                 name: folderName,
                 isFolderVisible: true,
-                profiles: [
-                    {
-                        key: 0,
-                        title: "",
-                        tags: "",
-                        avatarUrl: imageURL,
-                    },
-                ],
+                profiles: Array.from({ length: 3 }, (_, index) => ({
+                    key: index,
+                    title: "",
+                    tags: "",
+                    avatarUrl: imageURL,
+                })),
             };
             setFolders([...folders, newFolder]);
         }
@@ -84,47 +77,52 @@ function App() {
 
     return (
         <div className="bg-gray-900 text-gray-400 min-h-screen p-4">
-            <div className="mb-4 flex items-center justify-between">         
-                <NavBar onSearch={(tag) => setSearchTag(tag)} />
-                <img src="images\logo.png" className="rounded-full h-12 w-12 object-cover mr-20"/>
-                <button
-                className="bg-blue-500 text-white p-2 rounded mr-10"
-                onClick={() => {
-                    const folderName = prompt("Nume Folder:");
-                    if (folderName) {
-                        addNewProfile(folderName);
-                    }
-                }}
-            >
-                Document Nou +
-            </button>
+            <div className="max-w-6xl mx-auto">
+                <NavBar onSearch={(tag) => setSearchTag(tag)} onAddNewProfile={addNewProfile} />
             </div>
+
             <hr className="line-with-shadow" />
             <div className="mt-4">
+                <div className="max-w-6xl mx-auto mt-4 text-white">
+                    <h2 className="text-xl font-bold mb-2">Instructiuni:</h2>
+                    <p>
+                        Pentru a adauga un document nou apasati "Document Nou +". Tastati un nume pentru acesta in fereastra deschisa.
+                    </p>
+                    <p>
+                        Pentru a adauga o noua imagine apasati "Adauga +". Selectati poza din galeria personala, adaugati un titlu si o lista de tag-uri pentru cautare.
+                        Acum poza este afisata si puteti sa o taiati cum doriti.
+                    </p>
+                    <p>
+                        Pentru a fi salvata, apasati "Adauga imaginea".
+                    </p>
+                    <p>
+                        Functia de cautare functioneaza dupa tag-uri. Tastati un tag in casuta de cautare din bara de navigare pentru a afisa doar imaginile cu acel tag.
+                    </p>
+                </div>
                 {folders.map((folder, folderIndex) => (
                     <div key={folderIndex} className="mb-4">
                         <div className="flex justify-between items-center">
                             <button
                                 className="bg-green-500 text-white p-2 rounded mb-2"
                                 onClick={() => toggleFolderVisibility(folderIndex)}
-                                >
-                                 <FolderIcon/>{folder.name}
+                            >
+                                <FolderIcon />{folder.name}
                                 {folder.isFolderVisible ? (
-                                        <ExpandLessIcon />
-                                    ) : (
-                                        <ExpandMoreIcon />
-                                    )}
-                                </button>
-                                <br/>
+                                    <ExpandLessIcon />
+                                ) : (
+                                    <ExpandMoreIcon />
+                                )}
+                            </button>
+                            <br />
                         </div>
                         {folder.isFolderVisible && (
-                            <div className="grid grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 {folder.profiles.map((profile) => (
-                                    <div key={profile.key} className="flex justify-center">
+                                    <div key={profile.key} className="flex justify-center mb-4 sm:mb-0">
                                         <Profile
-                                            title = {profile.title}
-                                            tags = {profile.tags}
-                                            avatarUrl = {profile.avatarUrl}
+                                            title={profile.title}
+                                            tags={profile.tags}
+                                            avatarUrl={profile.avatarUrl}
                                             searchTags={searchTag !== "" ? [searchTag] : []}
                                             onProfileUpdate={(updatedProfile) =>
                                                 updateFolder(folder.name, updatedProfile, profile.key)
@@ -143,5 +141,6 @@ function App() {
         </div>
     );
 }
+
 
 export default App;
