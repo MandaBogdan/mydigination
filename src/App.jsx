@@ -31,6 +31,7 @@ function App() {
             avatarUrl: updatedProfile.imageURL,
             title: updatedProfile.title,
             tags: updatedProfile.tags,
+            hasPicture: updatedProfile.hasPicture1,
             modalOpen: updatedProfile.modalOpen,
         };
 
@@ -50,6 +51,7 @@ function App() {
                 key: updatedFolders[folderIndex].profiles.length + index,
                 title: "",
                 tags: "",
+                hasPicture: false,
                 avatarUrl: imageURL,
             }));
             updatedFolders[folderIndex].profiles.push(...newProfiles);
@@ -62,6 +64,7 @@ function App() {
                     key: index,
                     title: "",
                     tags: "",
+                    hasPicture: false,
                     avatarUrl: imageURL,
                 })),
             };
@@ -123,6 +126,7 @@ function App() {
                                             title={profile.title}
                                             tags={profile.tags}
                                             avatarUrl={profile.avatarUrl}
+                                            hasPicture={profile.hasPicture}
                                             searchTags={searchTag !== "" ? [searchTag] : []}
                                             onProfileUpdate={(updatedProfile) =>
                                                 updateFolder(folder.name, updatedProfile, profile.key)

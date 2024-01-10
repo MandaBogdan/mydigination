@@ -6,12 +6,12 @@ import Modal from "./Modal";
 import Zoom from "./Zoom";
 import { ZoomImage } from "react-image-zoom-on-hover";
 
-const Profile = ({title, tags, avatarUrl, searchTags, onProfileUpdate }) => {
+const Profile = ({hasPicture1, title, tags, avatarUrl, searchTags, onProfileUpdate }) => {
     const [myAvatarUrl, setAvatarUrl] = useState(avatarUrl);
     const [modalOpen, setModalOpen] = useState(false);
     const [myTitle, setMyTitle] = useState(title);
     const [myTags, setMyTags] = useState(tags);
-    const [hasPicture, setPicture] = useState(false);
+    const [hasPicture, setPicture] = useState(hasPicture1);
 
     const imageURL = useRef(
         "https://dunlite.com.au/wp-content/uploads/2019/04/placeholder.jpg"
@@ -23,7 +23,7 @@ const Profile = ({title, tags, avatarUrl, searchTags, onProfileUpdate }) => {
         setMyTitle(title);
         setMyTags(tags);
         setPicture(true);
-        onProfileUpdate({title, tags, imageURL});
+        onProfileUpdate({hasPicture1, title, tags, imageURL});
     };
 
     const shouldDisplayProfile =
