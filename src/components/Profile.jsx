@@ -23,7 +23,7 @@ const Profile = ({hasPicture1, title, tags, avatarUrl, searchTags, onProfileUpda
         setMyTitle(title);
         setMyTags(tags);
         setPicture(true);
-        onProfileUpdate({hasPicture1, title, tags, imageURL});
+        onProfileUpdate({hasPicture, title, tags, imageURL});
     };
 
     const shouldDisplayProfile =
